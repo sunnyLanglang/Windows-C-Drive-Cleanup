@@ -218,7 +218,7 @@ WPS 的清理过程稍微曲折，但也非常经典，一共分为5张关键截
 **查询 Local 目录（存放软件缓存的主要位置）：**
 
 ```powershell
-Get-ChildItem "C:\Users\覃朗\AppData\Local" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 10
+Get-ChildItem "C:\Users\覃朗（记得改成你的名字）\AppData\Local" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 10
 ```
 
 执行结果（节选）：
@@ -234,7 +234,7 @@ KOOK                        1.69
 **查询 Roaming 目录：**
 
 ```powershell
-Get-ChildItem "C:\Users\覃朗\AppData\Roaming" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 5
+Get-ChildItem "C:\Users\覃朗（记得改成你的名字）\AppData\Roaming" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 5
 ```
 
 执行结果（节选）： `kingsoft 3.78, Tencent 3.59, WNS 2.05, .minecraft 1.79, baidu 1.41`
