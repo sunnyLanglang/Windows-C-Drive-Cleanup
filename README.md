@@ -92,6 +92,7 @@
 5. **精准定位**：鼠标悬停在方块上即可看到具体文件路径。
 
 <img width="600" alt="WizTree 彩色方块图" src="https://github.com/user-attachments/assets/31acdb5d-6651-4cce-9339-c3df09d8b359" />
+
 *图：WizTree 的彩色方块图（当时找出 12.6GB 休眠文件，右下方，最大那块紫色）*
 
 ### 3.3 核心操作 A：关闭休眠文件（hiberfil.sys）
