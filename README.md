@@ -150,7 +150,7 @@
 
 *图：微信存储设置，将保存路径从 C 盘更改至 D 盘。*
 
-### 4.2 QQ（卸载重装踩坑记录）
+### 4.2 QQ（卸载重装与 OneDrive 陷阱）
 **操作**：尝试在QQ的“存储管理”中修改路径，但遇到了权限问题。
 **避坑**：QQ迁移时提示“云文件提供程序未运行（错误 0x8007016A）”，这是因为原路径在 OneDrive 中，文件变成了“云端占位符”，本地无法迁移。
 **处理**：最终放弃迁移，**彻底卸载了 QQ**，并强行删除了 C 盘的 `Tencent Files` 残留文件，腾出了空间。（**注**：打算后续重新去官网下载 QQ 时，直接手动选择安装到 D 盘，重新登录后再把聊天记录路径设置在 D 盘，彻底避开 OneDrive 的坑）。
@@ -158,6 +158,56 @@
 <img width="400" alt="QQ文件迁移报错" src="https://github.com/user-attachments/assets/006cfd04-b299-4e6e-8dd8-b96b6eaa72ec" />
 
 *图：QQ文件迁移时发生错误。*
+
+**最终解决方案（彻底根治）**：
+即使重装QQ，依然反复提示“消息文件打开失败”。排查发现，QQ顽固地尝试把数据写入 `C:\Users\覃朗\OneDrive\文档\Tencent Files`，被 OneDrive 的按需下载机制死死卡住。于是采取了以下强制措施：
+
+1. **彻底清场（清理所有旧残余）**：
+   *   强制结束所有QQ/腾讯进程。
+   *   删除 `AppData\Roaming\Tencent` 下的 `QQ`、`QQNT`、`TXSSO` 等残留。
+   *   删除 `AppData\Local\Tencent` 下的缓存。
+   *   强制删除 `Documents` 和 `OneDrive\文档` 下的 `Tencent Files` 文件夹。
+   *   删除 `C:\Program Files\Tencent\QQ`（之前误安装在C盘的旧版本）。
+   
+<img width="200" alt="屏幕截图 2026-09-11 202039" src="https://github.com/user-attachments/assets/cb1d7f63-2ae4-49d5-840a-5fd2370f5241" />
+
+*图：清理 Roaming 中的 QQ、QQNT、QQNTOpenSDK、QQTempSys、TXSSO文件夹。*
+
+<img width="300" alt="屏幕截图 2026-09-11 202305" src="https://github.com/user-attachments/assets/09c9fb44-612d-4471-9c50-7c0cd9d46e2e" />
+
+*图：强制删除系统 Documents 下的 Tencent Files。*
+
+<img width="200" alt="屏幕截图 2026-09-11 203357" src="https://github.com/user-attachments/assets/2d8e0040-da4d-43e5-bbcc-c8834df55acc" />
+
+*图：删除 OneDrive 文档下的 Tencent Files 残留。*
+
+<img width="300" alt="屏幕截图 2026-09-11 203536" src="https://github.com/user-attachments/assets/76aadbaa-1abf-4d59-bfcf-75970ea29480" />
+
+*图：删除之前误装在 C 盘 Program Files 下的旧 QQ 文件夹。*
+
+2. **纯净安装**：去官网下载最新版，选择自定义安装到 **D盘全新路径**（如 `D:\TencentQQ`）。
+
+3. **登录并第一时间改路径**：
+   安装完成后扫码登录。成功进入QQ界面后，**第一时间**点开左下角三条杠 -> 设置 -> **存储管理**。
+   *   此时“聊天消息默认保存到”还显示在 OneDrive，点击“更改存储路径”，把它改成纯本地的 **`D:\QQFiles`**（绝对避开 OneDrive）。
+   
+<img width="400" alt="屏幕截图 2026-09-11 204030" src="https://github.com/user-attachments/assets/a8d94465-0a7e-4b86-b7f5-e0f7a750f597" />
+
+*图：进入QQ设置，将默认存储路径从 OneDrive 改为 D 盘纯本地路径。*
+
+4. **执行数据迁移**：路径修改确认后，QQ 会自动将旧数据迁移到新路径下。
+   
+<img width="400" alt="屏幕截图 2026-09-11 204245" src="https://github.com/user-attachments/assets/dc85adeb-b675-493c-a192-10c1b8b35df1" />
+
+*图：QQ正在将历史数据迁移至 D 盘新路径。*
+
+5. **验证结果**：
+   *   迁移完成后，重启QQ，确认不再报“消息文件打开失败”。
+   *   去 D 盘看一眼 `D:\QQFiles\Tencent Files` 是否正常生成。
+   
+<img width="400" alt="屏幕截图 2026-09-11 204358" src="https://github.com/user-attachments/assets/549a3501-8df4-442a-8de2-131a1c4dd54d" />
+
+*图：最终成功将聊天消息保存至 D 盘，彻底告别报错。*
 
 ### 4.3 WPS Office（清理了整整9个G！）
 WPS 的清理过程稍微曲折，但也非常经典，一共分为5张关键截图：
@@ -188,6 +238,36 @@ WPS 的清理过程稍微曲折，但也非常经典，一共分为5张关键截
 <img width="400" alt="WPS清理后截图" src="https://github.com/user-attachments/assets/8513a7a4-ae40-439c-82de-36c9d65364dc" />
 
 *图：清理完成，占用降到 1.9 GB。*
+
+### 4.4 补充：微软商店的陷阱与设置调整
+
+**💡 重要结论：常用软件尽量不要从微软商店下载！**
+
+在经历了 QQ 登录失败并重装的过程后，发现了一个大坑：**微软商店版的应用默认强制安装在 C 盘**（隐藏极深的 `C:\Program Files\WindowsApps` 文件夹），且经常受限于系统沙盒权限，导致数据迁移极其困难。加上部分国产软件（如 QQ）的商店版和官网版配置不互通，极易引发“消息文件打开失败”等诡异 Bug。
+
+**✅ 正确的做法：**
+去软件官网下载 `.exe` 安装包，安装时点击“自定义安装”，把路径改到 D 盘（如 `D:\Program Files\QQ`）。这样既独立干净，又能完美避开 C 盘爆满的风险。
+
+**🛠️ 系统自带商店的“急救设置”：**
+如果你确实需要用微软商店下载游戏（比如 Xbox Game Pass），一定要提前改好默认路径。
+
+1. **打开设置**：在微软商店的“设置”中，找到“游戏安装选项”。
+<img width="600" alt="屏幕截图 2026-09-11 232522" src="https://github.com/user-attachments/assets/dcbfdadf-2d7d-4771-9f73-50596c3911d3" />
+
+*图：默认状态下，安装驱动器为 C 盘，安装文件夹为 `C:\XboxGames`。*
+
+2. **更改驱动器**：点击“更改驱动器”下拉菜单，选择 **`D:`**。
+<img width="400" alt="屏幕截图 2026-09-11 232755" src="https://github.com/user-attachments/assets/1acb3f95-1252-4bb3-bc2a-bb7804464d20" />
+
+*图：在弹出的下拉菜单中，将驱动器从 C 切换到 D。*
+
+3. **修改成功**：切换后系统会自动把路径变成 `D:\XboxGames`。确保“每次安装游戏询问我这些选项”的开关为 **开**。
+<img width="400" alt="屏幕截图 2026-09-11 232812" src="https://github.com/user-attachments/assets/bf98281b-37a2-45b5-9578-510fd5ba6942" />
+
+*图：修改成功，安装驱动器显示为 D 盘，文件夹变为 `D:\XboxGames`，一切准备就绪。*
+
+> **💡 小提示**：截图下方还有“腾讯应用宝设置”。`腾讯应用宝` 和 `MobileAppEngine`（移动应用引擎）主要用于在电脑上运行安卓手机应用及手游。如果你平时不需要在电脑上运行手机 App，可以在“设置 -> 应用”里将它们卸载掉，这能额外腾出好几个 G 的空间！
+
 
 ## 5. 终极武器：WizTree 可视化分析
 
@@ -226,7 +306,7 @@ WPS 的清理过程稍微曲折，但也非常经典，一共分为5张关键截
 **查询 Local 目录（存放软件缓存的主要位置）：**
 
 ```powershell
-Get-ChildItem "C:\Users\覃朗（记得改成你的名字）\AppData\Local" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 10
+Get-ChildItem "C:\Users\覃朗（记得改成你的用户名）\AppData\Local" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 10
 ```
 
 执行结果（节选）：
@@ -242,7 +322,7 @@ KOOK                        1.69
 **查询 Roaming 目录：**
 
 ```powershell
-Get-ChildItem "C:\Users\覃朗（记得改成你的名字）\AppData\Roaming" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 5
+Get-ChildItem "C:\Users\覃朗（记得改成你的用户名）\AppData\Roaming" -Directory | ForEach-Object { [PSCustomObject]@{Name=$_.Name; SizeGB=[math]::Round((Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum / 1GB, 2)} } | Sort-Object SizeGB -Descending | Select-Object -First 5
 ```
 
 执行结果（节选）： `kingsoft 3.78, Tencent 3.59, WNS 2.05, .minecraft 1.79, baidu 1.41`
