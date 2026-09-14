@@ -1,3 +1,5 @@
+[English](README.en.md) | 简体中文
+
 # Windows C盘深度清理工程日志：从爆红到满血复活
 
 > **项目背景**：Windows 11 (200GB C盘)  
