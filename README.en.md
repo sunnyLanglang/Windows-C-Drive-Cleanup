@@ -162,7 +162,7 @@ Half a year ago, I tried to help a friend clean up her C drive. Using only Windo
 *Image: Error occurred while migrating QQ files.*
 
 **Final Solution (Complete Fix)**:
-Even after reinstalling QQ, it still repeatedly showed "Failed to open message file". Investigation found that QQ stubbornly tried to write data to `C:\Users\Qin Lang\OneDrive\Documents\Tencent Files`, and was stuck by OneDrive's on-demand download mechanism. So the following forced measures were taken:
+Even after reinstalling QQ, it still repeatedly showed "Failed to open message file". Investigation found that QQ stubbornly tried to write data to `C:\Users\YourUsername\OneDrive\Documents\Tencent Files`, and was stuck by OneDrive's on-demand download mechanism. So the following forced measures were taken:
 
 1. **Thorough cleanup (remove all old leftovers)**:
    *   Force-end all QQ/Tencent processes.
@@ -213,7 +213,7 @@ Even after reinstalling QQ, it still repeatedly showed "Failed to open message f
 
 ### 4.3 WPS Office (Cleaned Up a Full 9 GB!)
 
-WPS's cleanup process was a bit twists and turns, but also very classic. It is divided into 5 key screenshots:
+WPS's cleanup process had a few twists and turns, but it was also very classic. It is divided into 5 key screenshots:
 
 1. **Initial state**: WPS once took up as much as **10.9 GB**.
 <img width="400" alt="WPS before cleanup" src="https://github.com/user-attachments/assets/8d72cf32-4a1c-468e-9f54-7919712a9fec" />
