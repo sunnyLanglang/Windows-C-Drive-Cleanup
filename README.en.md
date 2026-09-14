@@ -147,6 +147,7 @@ Half a year ago, I tried to help a friend clean up her C drive. Using only Windo
 ### 4.1 WeChat (Smooth Migration)
 **Action**: WeChat Settings -> Account and Storage -> Change storage location to `D:\WeChat` (or a new folder you create).
 **Result**: Successfully moved. The C drive Documents directory instantly slimmed down.
+
 <img width="400" alt="WeChat account and storage" src="https://github.com/user-attachments/assets/b63a2ea6-f455-4a1a-864d-b298ec1177c7" />
 
 *Image: WeChat storage settings, changing the save path from C drive to D drive.*
